@@ -1,13 +1,14 @@
 package com.mpp.mppbackend.Model;
 
 public class Car {
-    private int id;
+    private static int nextId = 1;
+    private final int id;
     private String name;
     private String type;
     private String description;
 
-    public Car(int id, String name, String type, String description) {
-        this.id = id;
+    public Car(String name, String type, String description) {
+        this.id = nextId++;
         this.name = name;
         this.type = type;
         this.description = description;

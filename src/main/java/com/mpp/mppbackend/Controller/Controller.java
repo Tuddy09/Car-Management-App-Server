@@ -1,43 +1,41 @@
 package com.mpp.mppbackend.Controller;
 
-import com.mpp.mppbackend.Repository.Repository;
-import org.springframework.web.bind.annotation.*;
 import com.mpp.mppbackend.Model.Car;
+import com.mpp.mppbackend.Service.CarService;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class Controller {
-    private final Repository repository;
+    private final CarService carService;
 
-    public Controller(Repository repository) {
-        this.repository = repository;
+    public Controller(CarService carService) {
+        this.carService = carService;
     }
+
 
     @PostMapping("/addCar")
-    public void addCar(@RequestParam String name, @RequestParam String type, @RequestParam String description) {
-        int id = repository.getAllCars().getLast().getId() + 1;
-        repository.addCar(new Car(id, name, type, description));
+    public void addCar(@RequestBody Car car) {
+        carService.addCar(car);
     }
 
-    @PostMapping("/updateCar")
-    public void updateCar(@RequestParam int id, @RequestParam String name, @RequestParam String type, @RequestParam String description) {
-        repository.updateCar(new Car(id, name, type, description));
+    @PutMapping("/updateCar")
+    public void updateCar(@RequestParam int id, @RequestBody Car car) {
+        carService.updateCar(id, car);
     }
 
-    @PostMapping("/deleteCar")
+    @DeleteMapping("/deleteCar")
     public void deleteCar(@RequestParam int id) {
-        repository.deleteCar(id);
+        carService.deleteCar(id);
     }
 
     @GetMapping("/getAllCars")
     public Iterable<Car> getAllCars() {
-        return repository.getAllCars();
+        return carService.getAllCars();
     }
 
     @GetMapping("/getCar")
     public Car getCar(@RequestParam int id) {
-        return repository.getCar(id);
+        return carService.getCar(id);
     }
-
-
 }

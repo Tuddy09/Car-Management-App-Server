@@ -11,7 +11,7 @@ public interface Repository {
 
     void addCar(Car car);
 
-    void updateCar(Car car);
+    void updateCar(int id, String name, String type, String description);
 
     void deleteCar(int id);
 }
