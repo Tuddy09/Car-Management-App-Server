@@ -6,6 +6,8 @@ import com.mpp.mppbackend.Model.Car;
 import com.mpp.mppbackend.Repository.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarService {
     private final Repository repository;
@@ -26,7 +28,7 @@ public class CarService {
         repository.deleteCar(id);
     }
 
-    public Iterable<Car> getAllCars() {
+    public List<Car> getAllCars() {
         return repository.getAllCars();
     }
 

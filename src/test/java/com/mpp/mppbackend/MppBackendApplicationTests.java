@@ -10,4 +10,9 @@ class MppBackendApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void applicationStarts() {
+        MppBackendApplication.main(new String[]{});
+    }
+
 }

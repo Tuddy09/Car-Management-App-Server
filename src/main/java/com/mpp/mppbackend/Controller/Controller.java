@@ -29,8 +29,8 @@ public class Controller {
         carService.deleteCar(id);
     }
 
-    @GetMapping("/getAllCars")
-    public Iterable<Car> getAllCars() {
+    @GetMapping("/getCars")
+    public Iterable<Car> getCars() {
         return carService.getAllCars();
     }
 
