@@ -1,6 +1,7 @@
 package com.mpp.mppbackend.Repository;
 
 import com.mpp.mppbackend.Model.Car;
+import net.datafaker.Faker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +11,15 @@ public class MemoryRepository implements Repository {
     private final List<Car> cars = new ArrayList<>();
 
     public MemoryRepository() {
-        cars.add(new Car("Opel", "Combi", "5 seats and 2 doors."));
-        cars.add(new Car("Renault", "Hatchback", "5 seats and 4 doors."));
-        cars.add(new Car("Mercedes", "Coupe", "2 seats and 2 doors."));
-        cars.add(new Car( "BMW", "Sedan", "5 seats and 4 doors."));
-        cars.add(new Car("Audi", "SUV", "5 seats and 4 doors."));
-        cars.add(new Car("Volkswagen", "Combi", "5 seats and 2 doors."));
+        for (int i = 0; i < 10; i++) {
+            Faker faker = new Faker();
+            String carName = faker.vehicle().manufacturer();
+            String carType = faker.vehicle().carType();
+            String carDescription = faker.vehicle().doors() + " Doors";
+            cars.add(new Car(carName, carType, carDescription));
+        }
     }
+
     @Override
     public List<Car> getAllCars() {
         return cars;
