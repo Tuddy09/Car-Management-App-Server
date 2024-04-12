@@ -1,17 +1,21 @@
 package com.mpp.mppbackend.Model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Car {
-    private static int nextId = 1;
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String name;
     private String type;
     private String description;
 
-    public Car(String name, String type, String description) {
-        this.id = nextId++;
-        this.name = name;
-        this.type = type;
-        this.description = description;
+    public Car() {
+
     }
 
     public int getId() {

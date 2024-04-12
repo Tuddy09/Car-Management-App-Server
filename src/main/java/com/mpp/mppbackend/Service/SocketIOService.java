@@ -31,7 +31,7 @@ public class SocketIOService {
         server.start();
 
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(this::sendNewCar, 0, 15, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::sendNewCar, 0, 60, TimeUnit.SECONDS);
     }
 
     @PreDestroy
@@ -44,7 +44,10 @@ public class SocketIOService {
         String carName = faker.vehicle().manufacturer();
         String carType = faker.vehicle().carType();
         String carDescription = faker.vehicle().doors() + " Doors";
-        Car car = new Car(carName, carType, carDescription);
+        Car car = new Car();
+        car.setName(carName);
+        car.setType(carType);
+        car.setDescription(carDescription);
         carService.addCar(car);
         server.getBroadcastOperations().sendEvent("newCar", car);
     }

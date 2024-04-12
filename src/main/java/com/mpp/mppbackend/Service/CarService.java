@@ -1,38 +1,14 @@
 package com.mpp.mppbackend.Service;
 
 
-
 import com.mpp.mppbackend.Model.Car;
-import com.mpp.mppbackend.Repository.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class CarService {
-    private final Repository repository;
-
-    public CarService(Repository repository) {
-        this.repository = repository;
-    }
-
-    public void addCar(Car car) {
-        repository.addCar(car);
-    }
-
-    public void updateCar(int id, Car car) {
-        repository.updateCar(id, car.getName(), car.getType(), car.getDescription());
-    }
-
-    public void deleteCar(int id) {
-        repository.deleteCar(id);
-    }
-
-    public List<Car> getAllCars() {
-        return repository.getAllCars();
-    }
-
-    public Car getCar(int id) {
-        return repository.getCar(id);
-    }
+public interface CarService {
+    void addCar(Car car);
+    List<Car> getAllCars();
+    Car getCar(int id);
+    void updateCar(int id, Car car);
+    void deleteCar(int id);
 }

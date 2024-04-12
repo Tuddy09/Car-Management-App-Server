@@ -2,11 +2,13 @@ package com.mpp.mppbackend.Controller;
 
 import com.mpp.mppbackend.Model.Car;
 import com.mpp.mppbackend.Service.CarService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class Controller {
+    @Autowired
     private final CarService carService;
 
     public Controller(CarService carService) {

@@ -1,40 +1,43 @@
 package com.mpp.mppbackend;
 
 import com.mpp.mppbackend.Model.Car;
-import com.mpp.mppbackend.Repository.MemoryRepository;
-import com.mpp.mppbackend.Repository.Repository;
 import com.mpp.mppbackend.Service.CarService;
+import com.mpp.mppbackend.Service.CarServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class ServiceTests {
-    @Mock
-    private Repository repository;
 
     @InjectMocks
-    private CarService carService;
+    private CarService carService = new CarServiceImpl();
 
     @BeforeEach
     public void setUp() {
-        repository = new MemoryRepository();
-        carService = new CarService(repository);
+        carService = new CarServiceImpl();
     }
 
     @Test
     public void addCarTest() {
-        carService.addCar(new Car("Toyota", "SUV", "5 seats and 4 doors."));
-        assert (carService.getAllCars().size() == 7);
+        Car car = new Car();
+        car.setName("Toyota");
+        car.setType("SUV");
+        car.setDescription("5 seats and 4 doors.");
+        carService.addCar(car);
+        assert (carService.getCar(car.getId()).getName().equals("Toyota"));
     }
 
     @Test
     public void updateCarTest() {
         Car car = carService.getAllCars().get(0);
-        carService.updateCar(car.getId(), new Car("Toyota", "SUV", "5 seats and 4 doors."));
+        Car car1 = new Car();
+        car1.setName("Toyota");
+        car1.setType("SUV");
+        car1.setDescription("5 seats and 4 doors.");
+        carService.updateCar(car.getId(), car1);
         assert (carService.getCar(car.getId()).getName().equals("Toyota"));
     }
 
