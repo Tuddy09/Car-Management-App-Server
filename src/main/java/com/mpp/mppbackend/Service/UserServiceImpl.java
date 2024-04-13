@@ -42,10 +42,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addCarToUser(int userId, int carId) {
+    public void addCarToUser(int userId, Car car) {
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
-            user.addCar(carRepository.findById(carId).orElse(null));
+            user.addCar(car);
             userRepository.save(user);
         }
     }
@@ -66,5 +66,28 @@ public class UserServiceImpl implements UserService {
             return user.getCars();
         }
         return null;
+    }
+
+    @Override
+    public boolean login(User user) {
+        List<User> users = (List<User>) userRepository.findAll();
+        for (User u : users) {
+            if (u.getUsername().equals(user.getUsername()) && u.getPassword().equals(user.getPassword())) {
+                return true;
+            }
+        }
+        userRepository.save(user);
+        return false;
+    }
+
+    @Override
+    public int getUserId(User user) {
+        List<User> users = (List<User>) userRepository.findAll();
+        for (User u : users) {
+            if (u.getUsername().equals(user.getUsername()) && u.getPassword().equals(user.getPassword())) {
+                return u.getId();
+            }
+        }
+        return -1;
     }
 }

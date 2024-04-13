@@ -9,11 +9,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String name;
-    private String email;
+    private String username;
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Car> cars;
 
     public User() {
@@ -24,12 +23,8 @@ public class User {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -40,12 +35,8 @@ public class User {
         return cars;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public void setPassword(String password) {

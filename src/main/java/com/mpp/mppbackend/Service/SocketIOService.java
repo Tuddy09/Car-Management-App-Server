@@ -31,7 +31,7 @@ public class SocketIOService {
         server.start();
 
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(this::sendNewCar, 0, 60, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::sendNewCar, 1, 60, TimeUnit.HOURS);
     }
 
     @PreDestroy

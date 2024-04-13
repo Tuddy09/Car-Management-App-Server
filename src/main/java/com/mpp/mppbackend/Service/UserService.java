@@ -12,7 +12,11 @@ public interface UserService {
     void updateUser(int id, User user);
     void deleteUser(int id);
 
-    void addCarToUser(int userId, int carId);
+    void addCarToUser(int userId, Car car);
     void removeCarFromUser(int userId, int carId);
     List<Car> getCarsByUserId(int userId);
+
+    boolean login(User user);
+
+    int getUserId(User user);
 }

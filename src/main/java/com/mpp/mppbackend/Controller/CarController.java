@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class Controller {
+@RequestMapping("/car")
+public class CarController {
     @Autowired
     private final CarService carService;
 
-    public Controller(CarService carService) {
+    public CarController(CarService carService) {
         this.carService = carService;
     }
 
