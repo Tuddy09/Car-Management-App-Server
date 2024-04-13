@@ -1,9 +1,6 @@
 package com.mpp.mppbackend.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Car {
@@ -13,6 +10,11 @@ public class Car {
     private String name;
     private String type;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public Car() {
 
@@ -44,5 +46,13 @@ public class Car {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

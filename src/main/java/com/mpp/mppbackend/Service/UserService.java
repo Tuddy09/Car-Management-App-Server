@@ -1,0 +1,18 @@
+package com.mpp.mppbackend.Service;
+
+import com.mpp.mppbackend.Model.Car;
+import com.mpp.mppbackend.Model.User;
+
+import java.util.List;
+
+public interface UserService {
+    void addUser(User user);
+    List<User> getAllUsers();
+    User getUser(int id);
+    void updateUser(int id, User user);
+    void deleteUser(int id);
+
+    void addCarToUser(int userId, int carId);
+    void removeCarFromUser(int userId, int carId);
+    List<Car> getCarsByUserId(int userId);
+}
