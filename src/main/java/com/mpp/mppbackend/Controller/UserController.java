@@ -47,8 +47,11 @@ public class UserController {
     }
 
     @PostMapping("/addCarToUser")
-    public void addCarToUser(@RequestParam int userId, @RequestBody Car car) {
+    public ResponseEntity<?> addCarToUser(@RequestParam int userId, @RequestBody Car car) {
         userService.addCarToUser(userId, car);
+        Map<String, Object> response = new HashMap<>();
+        response.put("id", userService.getCarId(car));
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/removeCarFromUser")

@@ -19,4 +19,7 @@ public interface UserService {
     boolean login(User user);
 
     int getUserId(User user);
+
+
+    int getCarId(Car car);
 }

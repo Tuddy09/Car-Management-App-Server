@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(int id, User user) {
+        user.setId(id);
         userRepository.save(user);
     }
 
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             user.removeCar(carRepository.findById(carId).orElse(null));
             userRepository.save(user);
+            carRepository.deleteById(carId);
         }
     }
 
@@ -90,4 +92,16 @@ public class UserServiceImpl implements UserService {
         }
         return -1;
     }
+
+    @Override
+    public int getCarId(Car car) {
+        List<Car> cars = (List<Car>) carRepository.findAll();
+        for (Car c : cars) {
+            if (c.getName().equals(car.getName()) && c.getType().equals(car.getType()) && c.getDescription().equals(car.getDescription())){
+                return c.getId();
+            }
+        }
+        return -1;
+    }
+
 }

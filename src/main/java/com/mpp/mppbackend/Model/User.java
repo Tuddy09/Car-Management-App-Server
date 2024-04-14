@@ -1,5 +1,6 @@
 package com.mpp.mppbackend.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Car> cars;
 
     public User() {
@@ -33,6 +35,10 @@ public class User {
 
     public List<Car> getCars() {
         return cars;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setUsername(String name) {
