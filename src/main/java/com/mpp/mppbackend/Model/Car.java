@@ -1,5 +1,6 @@
 package com.mpp.mppbackend.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class Car {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
 
@@ -23,6 +25,7 @@ public class Car {
     public int getId() {
         return id;
     }
+
 
     public String getName() {
         return name;

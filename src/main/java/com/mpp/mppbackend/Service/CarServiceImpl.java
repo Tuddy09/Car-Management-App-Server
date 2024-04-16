@@ -1,7 +1,6 @@
 package com.mpp.mppbackend.Service;
 
 import com.mpp.mppbackend.Model.Car;
-import com.mpp.mppbackend.Model.User;
 import com.mpp.mppbackend.Repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +32,7 @@ public class CarServiceImpl implements CarService{
     @Override
     public void updateCar(int id, Car car) {
         if (carRepository.findById(id).isPresent()) {
+            car.setUser(carRepository.findById(id).get().getUser());
             carRepository.save(car);
         }
     }
@@ -44,11 +44,4 @@ public class CarServiceImpl implements CarService{
         }
     }
 
-    @Override
-    public User getUserOfCar(int id) {
-        if (carRepository.findById(id).isPresent()) {
-            return carRepository.findById(id).get().getUser();
-        }
-        return null;
-    }
 }
