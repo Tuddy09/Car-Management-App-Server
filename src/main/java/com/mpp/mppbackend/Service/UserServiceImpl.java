@@ -52,13 +52,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeCarFromUser(int userId, int carId) {
-        User user = userRepository.findById(userId).orElse(null);
-        if (user != null) {
-            user.removeCar(carRepository.findById(carId).orElse(null));
+    public void removeCarFromUser(int carId) {
+        //remove car from user
+        Car car = carRepository.findById(carId).orElse(null);
+        if (car != null) {
+            User user = car.getUser();
+            user.removeCar(car);
             userRepository.save(user);
-            carRepository.deleteById(carId);
         }
+        //delete car
+        carRepository.deleteById(carId);
     }
 
     @Override

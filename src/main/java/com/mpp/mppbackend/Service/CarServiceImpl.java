@@ -39,9 +39,7 @@ public class CarServiceImpl implements CarService{
 
     @Override
     public void deleteCar(int id) {
-        if (carRepository.findById(id).isPresent()) {
-            carRepository.deleteById(id);
-        }
+        carRepository.deleteById(id);
     }
 
 }

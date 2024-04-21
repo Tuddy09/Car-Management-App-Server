@@ -22,8 +22,11 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public void addUser(@RequestBody User user) {
+    public ResponseEntity<?> addUser(@RequestBody User user) {
         userService.addUser(user);
+        Map<String, Object> response = new HashMap<>();
+        response.put("id", userService.getUserId(user));
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/updateUser")
@@ -55,8 +58,8 @@ public class UserController {
     }
 
     @DeleteMapping("/removeCarFromUser")
-    public void removeCarFromUser(@RequestParam int userId, @RequestParam int carId) {
-        userService.removeCarFromUser(userId, carId);
+    public void removeCarFromUser(@RequestParam int carId) {
+        userService.removeCarFromUser(carId);
     }
 
     @GetMapping("/getCarsByUserId")
