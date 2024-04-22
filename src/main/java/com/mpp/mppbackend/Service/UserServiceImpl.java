@@ -100,11 +100,15 @@ public class UserServiceImpl implements UserService {
     public int getCarId(Car car) {
         List<Car> cars = (List<Car>) carRepository.findAll();
         for (Car c : cars) {
-            if (c.getName().equals(car.getName()) && c.getType().equals(car.getType()) && c.getDescription().equals(car.getDescription())){
+            if (c.getName().equals(car.getName()) && c.getType().equals(car.getType()) && c.getDescription().equals(car.getDescription())) {
                 return c.getId();
             }
         }
         return -1;
     }
 
+    @Override
+    public void addUsers(List<User> users) {
+        userRepository.saveAll(users);
+    }
 }

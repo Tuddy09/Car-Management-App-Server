@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 @Entity
 public class Car {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String type;
@@ -24,6 +23,10 @@ public class Car {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 
