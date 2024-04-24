@@ -52,12 +52,12 @@ public class CarController {
     }
 
     @GetMapping("/getPagesCount")
-    public int getPagesCount() {
-        return carService.getPagesCount();
+    public int getPagesCount(@RequestParam int userId) {
+        return carService.getPagesCount(userId);
     }
 
     @GetMapping("/getPages")
-    public Iterable<Car> getPages(@RequestParam int page) {
-        return carService.getPages(page);
+    public Iterable<Car> getPages(@RequestParam int page, @RequestParam int userId) {
+        return carService.getPages(page, userId);
     }
 }

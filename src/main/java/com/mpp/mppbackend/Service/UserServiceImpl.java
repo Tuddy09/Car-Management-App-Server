@@ -35,8 +35,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(int id, User user) {
-        user.setId(id);
-        userRepository.save(user);
+        User userToUpdate = userRepository.findById(id).orElse(null);
+        if (userToUpdate != null) {
+            userToUpdate.setUsername(user.getUsername());
+            userToUpdate.setPassword(user.getPassword());
+            userRepository.save(userToUpdate);
+        }
     }
 
     @Override
@@ -77,32 +81,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int getUserId(User user) {
-        // TODO! Change this to something more efficient
-        List<User> users = (List<User>) userRepository.findAll();
-        for (User u : users) {
-            if (u.getUsername().equals(user.getUsername()) && u.getPassword().equals(user.getPassword())) {
-                return u.getId();
-            }
-        }
-        return -1;
+        return userRepository.findByUsername(user.getUsername()).getId();
     }
 
     @Override
     public int getCarId(Car car) {
-        // TODO! Change this to something more efficient
-        List<Car> cars = (List<Car>) carRepository.findAll();
-        for (Car c : cars) {
-            if (c.getName().equals(car.getName()) && c.getType().equals(car.getType()) && c.getDescription().equals(car.getDescription())) {
-                return c.getId();
-            }
-        }
-        return -1;
+        return carRepository.findCarByNameAndUser(car.getName(), car.getUser()).getId();
     }
 
     @Override
     public int getPagesCount() {
         long usersCount = userRepository.count();
-        return (int) Math.ceil(usersCount / 50.0);
+        return (int) Math.ceil(usersCount / 50.0) - 1;
     }
 
     @Override

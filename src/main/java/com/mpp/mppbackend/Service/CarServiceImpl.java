@@ -46,13 +46,15 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public int getPagesCount() {
-        return (int) Math.ceil(carRepository.count() / 50.0);
+    public int getPagesCount(int userId) {
+        return (int) Math.ceil(carRepository.countByUserId(userId) / 50.0) - 1;
     }
 
     @Override
-    public Iterable<Car> getPages(int page) {
+    public Iterable<Car> getPages(int page, int userId) {
         Pageable pageable = PageRequest.of(page, 50);
-        return carRepository.findAll(pageable).getContent();
+        return carRepository.findCarByUserId(userId, pageable).getContent();
     }
+
+
 }

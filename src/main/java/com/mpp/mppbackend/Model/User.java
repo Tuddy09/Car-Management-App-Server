@@ -1,7 +1,9 @@
 package com.mpp.mppbackend.Model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Formula;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +12,20 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Views.Public.class)
     private int id;
+    @JsonView(Views.Public.class)
     private String username;
+    @JsonView(Views.Public.class)
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Car> cars = new ArrayList<>();
+
+    @Formula("(SELECT COUNT(*) FROM car c WHERE c.user_id = id)")
+    @JsonView(Views.Public.class)
+    private int carCount;
 
     public User() {
 
@@ -36,10 +45,6 @@ public class User {
 
     public List<Car> getCars() {
         return cars;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setUsername(String username) {

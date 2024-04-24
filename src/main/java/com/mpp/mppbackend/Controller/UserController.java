@@ -1,7 +1,9 @@
 package com.mpp.mppbackend.Controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mpp.mppbackend.Model.Car;
 import com.mpp.mppbackend.Model.User;
+import com.mpp.mppbackend.Model.Views;
 import com.mpp.mppbackend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,11 +52,8 @@ public class UserController {
     }
 
     @PostMapping("/addCarToUser")
-    public ResponseEntity<?> addCarToUser(@RequestParam int userId, @RequestBody Car car) {
+    public void addCarToUser(@RequestParam int userId, @RequestBody Car car) {
         userService.addCarToUser(userId, car);
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", userService.getCarId(car));
-        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/removeCarFromUser")
@@ -73,6 +72,7 @@ public class UserController {
     }
 
     @GetMapping("/getPages")
+    @JsonView(Views.Public.class)
     public Iterable<User> getPages(@RequestParam int page) {
         return userService.getPages(page);
     }
