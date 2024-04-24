@@ -11,4 +11,6 @@ public interface CarService {
     Car getCar(int id);
     void updateCar(int id, Car car);
     void deleteCar(int id);
+
+    void addCars(List<Car> cars);
 }

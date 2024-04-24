@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CarServiceImpl implements CarService{
+public class CarServiceImpl implements CarService {
     @Autowired
     private CarRepository carRepository;
+
     @Override
     public void addCar(Car car) {
         carRepository.save(car);
@@ -42,4 +43,8 @@ public class CarServiceImpl implements CarService{
         carRepository.deleteById(id);
     }
 
+    @Override
+    public void addCars(List<Car> cars) {
+        carRepository.saveAll(cars);
+    }
 }

@@ -1,5 +1,6 @@
 package com.mpp.mppbackend.Controller;
 
+import com.mpp.mppbackend.DatabaseSeederService;
 import com.mpp.mppbackend.Model.Car;
 import com.mpp.mppbackend.Service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 public class CarController {
     @Autowired
     private final CarService carService;
+
+    @Autowired
+    private DatabaseSeederService databaseSeederService;
 
     public CarController(CarService carService) {
         this.carService = carService;
@@ -40,5 +44,10 @@ public class CarController {
     @GetMapping("/getCar")
     public Car getCar(@RequestParam int id) {
         return carService.getCar(id);
+    }
+
+    @GetMapping("/seedDatabase")
+    public void seedDatabase() {
+        databaseSeederService.seedDatabase();
     }
 }

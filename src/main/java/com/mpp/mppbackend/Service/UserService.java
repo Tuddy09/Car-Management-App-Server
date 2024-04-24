@@ -22,4 +22,6 @@ public interface UserService {
 
 
     int getCarId(Car car);
+
+    void addUsers(List<User> users);
 }
