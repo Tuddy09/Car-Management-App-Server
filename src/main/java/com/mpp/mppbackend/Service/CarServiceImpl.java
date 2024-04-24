@@ -3,6 +3,8 @@ package com.mpp.mppbackend.Service;
 import com.mpp.mppbackend.Model.Car;
 import com.mpp.mppbackend.Repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +46,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void addCars(List<Car> cars) {
-        carRepository.saveAll(cars);
+    public int getPagesCount() {
+        return (int) Math.ceil(carRepository.count() / 50.0);
+    }
+
+    @Override
+    public Iterable<Car> getPages(int page) {
+        Pageable pageable = PageRequest.of(page, 50);
+        return carRepository.findAll(pageable).getContent();
     }
 }

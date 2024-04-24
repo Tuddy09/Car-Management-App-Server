@@ -16,12 +16,12 @@ public interface UserService {
     void removeCarFromUser(int carId);
     List<Car> getCarsByUserId(int userId);
 
-    boolean login(User user);
-
     int getUserId(User user);
 
 
     int getCarId(Car car);
 
-    void addUsers(List<User> users);
+    int getPagesCount();
+
+    Iterable<User> getPages(int page);
 }

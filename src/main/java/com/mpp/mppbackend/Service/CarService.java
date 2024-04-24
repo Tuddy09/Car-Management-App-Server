@@ -12,5 +12,7 @@ public interface CarService {
     void updateCar(int id, Car car);
     void deleteCar(int id);
 
-    void addCars(List<Car> cars);
+    int getPagesCount();
+
+    Iterable<Car> getPages(int page);
 }

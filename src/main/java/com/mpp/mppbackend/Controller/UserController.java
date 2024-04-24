@@ -67,13 +67,14 @@ public class UserController {
         return userService.getCarsByUserId(userId);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
-        boolean loginResult = userService.login(user);
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", loginResult);
-        response.put("id", userService.getUserId(user));
-        return ResponseEntity.ok(response);
+    @GetMapping("/getPagesCount")
+    public int getPagesCount() {
+        return userService.getPagesCount();
+    }
+
+    @GetMapping("/getPages")
+    public Iterable<User> getPages(@RequestParam int page) {
+        return userService.getPages(page);
     }
 
 }

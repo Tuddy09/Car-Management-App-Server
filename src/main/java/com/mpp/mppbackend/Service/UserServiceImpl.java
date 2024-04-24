@@ -5,6 +5,8 @@ import com.mpp.mppbackend.Model.User;
 import com.mpp.mppbackend.Repository.CarRepository;
 import com.mpp.mppbackend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -74,19 +76,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(User user) {
-        List<User> users = (List<User>) userRepository.findAll();
-        for (User u : users) {
-            if (u.getUsername().equals(user.getUsername()) && u.getPassword().equals(user.getPassword())) {
-                return true;
-            }
-        }
-        userRepository.save(user);
-        return false;
-    }
-
-    @Override
     public int getUserId(User user) {
+        // TODO! Change this to something more efficient
         List<User> users = (List<User>) userRepository.findAll();
         for (User u : users) {
             if (u.getUsername().equals(user.getUsername()) && u.getPassword().equals(user.getPassword())) {
@@ -98,6 +89,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int getCarId(Car car) {
+        // TODO! Change this to something more efficient
         List<Car> cars = (List<Car>) carRepository.findAll();
         for (Car c : cars) {
             if (c.getName().equals(car.getName()) && c.getType().equals(car.getType()) && c.getDescription().equals(car.getDescription())) {
@@ -108,7 +100,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUsers(List<User> users) {
-        userRepository.saveAll(users);
+    public int getPagesCount() {
+        long usersCount = userRepository.count();
+        return (int) Math.ceil(usersCount / 50.0);
+    }
+
+    @Override
+    public Iterable<User> getPages(int page) {
+        Pageable pageable = PageRequest.of(page, 50);
+        return userRepository.findAll(pageable).getContent();
     }
 }

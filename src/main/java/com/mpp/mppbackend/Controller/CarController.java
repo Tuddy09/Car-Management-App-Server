@@ -50,4 +50,14 @@ public class CarController {
     public void seedDatabase() {
         databaseSeederService.seedDatabase();
     }
+
+    @GetMapping("/getPagesCount")
+    public int getPagesCount() {
+        return carService.getPagesCount();
+    }
+
+    @GetMapping("/getPages")
+    public Iterable<Car> getPages(@RequestParam int page) {
+        return carService.getPages(page);
+    }
 }
