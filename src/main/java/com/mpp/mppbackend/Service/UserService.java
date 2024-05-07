@@ -2,11 +2,12 @@ package com.mpp.mppbackend.Service;
 
 import com.mpp.mppbackend.Model.Car;
 import com.mpp.mppbackend.Model.User;
+import com.mpp.mppbackend.Model.UserAccount;
 
 import java.util.List;
 
 public interface UserService {
-    void addUser(User user);
+    void addUser(User user, UserAccount useAccount);
     List<User> getAllUsers();
     User getUser(int id);
     void updateUser(int id, User user);
@@ -21,7 +22,7 @@ public interface UserService {
 
     int getCarId(Car car);
 
-    int getPagesCount();
+    int getPagesCount(UserAccount useAccount);
 
-    Iterable<User> getPages(int page);
+    Iterable<User> getPages(int page, UserAccount useAccount);
 }

@@ -2,6 +2,7 @@ package com.mpp.mppbackend.Service;
 
 import com.mpp.mppbackend.Model.Car;
 import com.mpp.mppbackend.Model.User;
+import com.mpp.mppbackend.Model.UserAccount;
 import com.mpp.mppbackend.Repository.CarRepository;
 import com.mpp.mppbackend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class UserServiceImpl implements UserService {
     private CarRepository carRepository;
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user, UserAccount userAccount) {
+        user.setUserAccount(userAccount);
         userRepository.save(user);
     }
 
@@ -90,14 +92,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getPagesCount() {
-        long usersCount = userRepository.count();
+    public int getPagesCount(UserAccount userAccount) {
+        long usersCount = userRepository.countByUserAccount(userAccount);
         return (int) Math.ceil(usersCount / 50.0) - 1;
     }
 
     @Override
-    public Iterable<User> getPages(int page) {
+    public Iterable<User> getPages(int page, UserAccount userAccount) {
         Pageable pageable = PageRequest.of(page, 50);
-        return userRepository.findAll(pageable).getContent();
+        return userRepository.findAllByUserAccount(userAccount, pageable);
     }
 }

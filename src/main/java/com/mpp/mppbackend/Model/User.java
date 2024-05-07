@@ -27,6 +27,10 @@ public class User {
     @JsonView(Views.Public.class)
     private int carCount;
 
+    @ManyToOne
+    @JoinColumn(name = "user_account_id")
+    private UserAccount userAccount;
+
     public User() {
 
     }
@@ -63,6 +67,14 @@ public class User {
     public void removeCar(Car car) {
         cars.remove(car);
         car.setUser(null);
+    }
+
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
 }
