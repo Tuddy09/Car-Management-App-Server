@@ -1,2 +1,9 @@
-runtime: java21
-instance_class: F4
+runtime: java17
+env: standard
+instance_class: F1
+handlers:
+  - url: .*
+    script: auto
+service_account: mpp-backend-422621@appspot.gserviceaccount.com
+manual_scaling:
+  instances: 1
